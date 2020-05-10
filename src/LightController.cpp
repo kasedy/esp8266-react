@@ -105,6 +105,7 @@ void LightController::nextAnimation() {
 
 void LightController::setAnimationByIndex(uint8_t animationIndex) {
   if (currentAnimationIndex == animationIndex 
+      || animationIndex == -1
       || animationIndex >= effects.size()) {
     return;
   }

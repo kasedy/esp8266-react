@@ -37,6 +37,7 @@ public:
   void setStateOn(bool newStateOn);
   void toggleState();
 
+  inline bool supportsAnimation() const { return !effects.empty(); }
   size_t getAnimationCount();
   uint8_t getCurrentAnimationIndex();
   const char* getAnimationName(size_t index);
