@@ -5,9 +5,9 @@
 
 #include "LightController.h"
 
-class LightControllerService : public SettingsService<LightController> {
+class LightStateChangeTracker : public SettingsService<LightController> {
 public:
-  LightControllerService(
+  LightStateChangeTracker(
     const std::vector<LightController::PinStatus> &pinsGpio, 
     const std::vector<Effect> &effects);
 
