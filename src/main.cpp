@@ -2,11 +2,11 @@
 #include <FS.h>
 
 #include "effects.h"
-#include "LightStateChangeTracker.h"
+#include "lightControllerService.h"
 
-AsyncWebServer *webServer;
-ESP8266React *esp8266React;
-LightStateChangeTracker *lightControllerService;
+AsyncWebServer server(80);
+ESP8266React esp8266React(&server, &SPIFFS);
+LightControllerService *lightControllerService;
 
 void setup() {
 #if LOGGING
@@ -14,15 +14,13 @@ void setup() {
   Serial.setDebugOutput(true);
 #endif 
 
-  webServer = new AsyncWebServer(80);
-  esp8266React = new ESP8266React(webServer, &SPIFFS);
-  lightControllerService = new LightStateChangeTracker(LED_PINS, EFFECT_LIST);
+  lightControllerService = new LightControllerService(LED_PINS, EFFECT_LIST);
   SPIFFS.begin();
-  esp8266React->begin();
-  webServer->begin();
+  esp8266React.begin();
+  server.begin();
 }
 
 void loop() {
-  esp8266React->loop();
+  esp8266React.loop();
   lightControllerService->loop();
 }
