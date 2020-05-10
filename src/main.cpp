@@ -1,44 +1,26 @@
 #include <ESP8266React.h>
-#include <LightMqttSettingsService.h>
-#include <LightStateService.h>
 #include <FS.h>
 
-#define SERIAL_BAUD_RATE 115200
+#include "effects.h"
+#include "lightControllerService.h"
 
 AsyncWebServer server(80);
 ESP8266React esp8266React(&server, &SPIFFS);
-LightMqttSettingsService lightMqttSettingsService =
-    LightMqttSettingsService(&server, &SPIFFS, esp8266React.getSecurityManager());
-LightStateService lightStateService = LightStateService(&server,
-                                                        esp8266React.getSecurityManager(),
-                                                        esp8266React.getMqttClient(),
-                                                        &lightMqttSettingsService);
+LightControllerService *lightControllerService;
 
 void setup() {
-  // start serial and filesystem
-  Serial.begin(SERIAL_BAUD_RATE);
+#if LOGGING
+  Serial.begin(74880, SERIAL_8N1, SERIAL_TX_ONLY);
+  Serial.setDebugOutput(true);
+#endif 
 
-  // start the file system (must be done before starting the framework)
-#ifdef ESP32
-  SPIFFS.begin(true);
-#elif defined(ESP8266)
+  lightControllerService = new LightControllerService(LED_PINS, EFFECT_LIST);
   SPIFFS.begin();
-#endif
-
-  // start the framework and demo project
   esp8266React.begin();
-
-  // load the initial light settings
-  lightStateService.begin();
-
-  // start the light service
-  lightMqttSettingsService.begin();
-
-  // start the server
   server.begin();
 }
 
 void loop() {
-  // run the framework's loop function
   esp8266React.loop();
+  lightControllerService->loop();
 }
