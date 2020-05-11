@@ -37,7 +37,7 @@ LightStateWebSocket::LightStateWebSocket(SettingsService<LightController>* setti
                                     deserializer, 
                                     settingsService,
                                     webServer,
-                                    "/ws/light_status",
+                                    "/ws/light",
                                     securityManager,
                                     AuthenticationPredicates::NONE_REQUIRED) {
 }

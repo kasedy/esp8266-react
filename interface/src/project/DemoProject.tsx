@@ -8,9 +8,7 @@ import { MenuAppBar } from '../components';
 import { AuthenticatedRoute } from '../authentication';
 
 import DemoInformation from './DemoInformation';
-import LightStateRestController from './LightStateRestController';
-import LightStateWebSocketController from './LightStateWebSocketController';
-import LightMqttSettingsController from './LightMqttSettingsController';
+import LightSettingsSocketController from './LightSettingsSocketController';
 
 class DemoProject extends Component<RouteComponentProps> {
 
@@ -22,17 +20,13 @@ class DemoProject extends Component<RouteComponentProps> {
     return (
       <MenuAppBar sectionTitle="Demo Project">
         <Tabs value={this.props.match.url} onChange={this.handleTabChange} variant="fullWidth">
-          <Tab value={`/${PROJECT_PATH}/demo/information`} label="Information" />
-          <Tab value={`/${PROJECT_PATH}/demo/rest`} label="REST Controller" />
           <Tab value={`/${PROJECT_PATH}/demo/socket`} label="WebSocket Controller" />
-          <Tab value={`/${PROJECT_PATH}/demo/mqtt`} label="MQTT Controller" />
+          <Tab value={`/${PROJECT_PATH}/demo/info`} label="Info" />
         </Tabs>
         <Switch>
-          <AuthenticatedRoute exact path={`/${PROJECT_PATH}/demo/information`} component={DemoInformation} />
-          <AuthenticatedRoute exact path={`/${PROJECT_PATH}/demo/rest`} component={LightStateRestController} />
-          <AuthenticatedRoute exact path={`/${PROJECT_PATH}/demo/socket`} component={LightStateWebSocketController} />
-          <AuthenticatedRoute exact path={`/${PROJECT_PATH}/demo/mqtt`} component={LightMqttSettingsController} />
-          <Redirect to={`/${PROJECT_PATH}/demo/information`} />
+          <AuthenticatedRoute exact path={`/${PROJECT_PATH}/demo/socket`} component={LightSettingsSocketController} />
+          <AuthenticatedRoute exact path={`/${PROJECT_PATH}/demo/info`} component={DemoInformation} />
+          <Redirect to={`/${PROJECT_PATH}/demo/socket`} />
         </Switch>
       </MenuAppBar>
     )
