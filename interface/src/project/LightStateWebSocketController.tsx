@@ -9,7 +9,7 @@ import { createStyles, Theme, makeStyles, WithStyles, withStyles } from '@materi
 
 import { LightSettings } from './types';
 
-export const LIGHT_SETTINGS_WEBSOCKET_URL = WEB_SOCKET_ROOT + "light_status";
+export const LIGHT_SETTINGS_WEBSOCKET_URL = WEB_SOCKET_ROOT + "light";
 
 const styles = (theme: Theme) => createStyles({
   content: {
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     labelWrapper: {
       width: '100%',
-      paddingTop: theme.spacing(4),
+      paddingTop: theme.spacing(2),
     }
   })
 );
