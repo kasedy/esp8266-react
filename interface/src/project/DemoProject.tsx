@@ -8,7 +8,7 @@ import { MenuAppBar } from '../components';
 import { AuthenticatedRoute } from '../authentication';
 
 import DemoInformation from './DemoInformation';
-import LightSettingsSocketController from './LightSettingsSocketController';
+import LightStateWebSocketController from './LightStateWebSocketController';
 
 class DemoProject extends Component<RouteComponentProps> {
 
@@ -24,7 +24,7 @@ class DemoProject extends Component<RouteComponentProps> {
           <Tab value={`/${PROJECT_PATH}/demo/info`} label="Info" />
         </Tabs>
         <Switch>
-          <AuthenticatedRoute exact path={`/${PROJECT_PATH}/demo/socket`} component={LightSettingsSocketController} />
+          <AuthenticatedRoute exact path={`/${PROJECT_PATH}/demo/socket`} component={LightStateWebSocketController} />
           <AuthenticatedRoute exact path={`/${PROJECT_PATH}/demo/info`} component={DemoInformation} />
           <Redirect to={`/${PROJECT_PATH}/demo/socket`} />
         </Switch>

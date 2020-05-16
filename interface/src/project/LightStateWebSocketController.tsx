@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { ValidatorForm } from 'react-material-ui-form-validator';
 
 import { Paper, Typography, Box, Switch, Slider, Select, MenuItem, InputLabel, NativeSelect, TextField, FormControl } from '@material-ui/core';
-import { WEB_SOCKET_ROOT } from '../api';
-import { SocketControllerProps, SocketFormLoader, SocketFormProps, socketController } from '../components';
-import { SectionContent, BlockFormControlLabel } from '../components';
+import { WEB_SOCKET_ROOT, PROJECT_NAME } from '../api';
+import { WebSocketControllerProps, WebSocketFormLoader, WebSocketFormProps, webSocketController } from '../components';
+import { BlockFormControlLabel } from '../components';
 import { createStyles, Theme, makeStyles, WithStyles, withStyles } from '@material-ui/core/styles';
 
-import { LightSettings } from './types';
+import { LightState } from './types';
 
 export const LIGHT_SETTINGS_WEBSOCKET_URL = WEB_SOCKET_ROOT + "light";
 
@@ -38,20 +37,20 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-type LightSettingsSocketControllerProps = SocketControllerProps<LightSettings>;
+type LightStateWebSocketControllerProps = WebSocketControllerProps<LightState>;
 
-class LightSettingsSocketController extends Component<LightSettingsSocketControllerProps & WithStyles<typeof styles>> {
+class LightStateSocketController extends Component<LightStateWebSocketControllerProps & WithStyles<typeof styles>> {
 
   render() {
     return (
       <Paper className={this.props.classes.content}>
         <Typography variant="h4" gutterBottom>
-          Countreau Bottle
+          {PROJECT_NAME}
         </Typography>
-        <SocketFormLoader
+        <WebSocketFormLoader
           {...this.props}
           render={props => (
-            <LightSettingsSocketControllerForm {...props} />
+            <LightStateSocketControllerForm {...props} />
           )}
         />
       </Paper>
@@ -59,11 +58,11 @@ class LightSettingsSocketController extends Component<LightSettingsSocketControl
   }
 }
 
-export default socketController(LIGHT_SETTINGS_WEBSOCKET_URL, 100, withStyles(styles)(LightSettingsSocketController));
+export default webSocketController(LIGHT_SETTINGS_WEBSOCKET_URL, 100, withStyles(styles)(LightStateSocketController));
 
-type LightSettingsSocketControllerFormProps = SocketFormProps<LightSettings>;
+type LightStateSocketControllerFormProps = WebSocketFormProps<LightState>;
 
-function LightSettingsSocketControllerForm(props: LightSettingsSocketControllerFormProps) {
+function LightStateSocketControllerForm(props: LightStateSocketControllerFormProps) {
   const { data, saveData, setData } = props;
 
   const handleValueChange = (name: string) => {
@@ -74,7 +73,7 @@ function LightSettingsSocketControllerForm(props: LightSettingsSocketControllerF
 
   const renderEffectListItems = () => {
     return data.effect_list.map((name: any, index: any) => (
-      <MenuItem key={index} value={index}>{name}</MenuItem>
+      <option key={index} value={index}>{name}</option>
     ));
   }
 
@@ -125,11 +124,8 @@ function LightSettingsSocketControllerForm(props: LightSettingsSocketControllerF
           <Select
             native
             value={data.effect}
-            onChange={setEffect}
-          >
-            {data.effect_list.map((name: any, index: any) => (
-              <option key={index} value={index}>{name}</option>
-            ))}
+            onChange={setEffect}>
+            {renderEffectListItems()}
           </Select>
         </FormControl>      
     </Box>
