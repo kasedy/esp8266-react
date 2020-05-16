@@ -5,6 +5,7 @@
 
 #include <Esp.h>
 
+//TODO: rename into LightState or DeviceState
 class LightController {
 public:
   struct PinStatus {

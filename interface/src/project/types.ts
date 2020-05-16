@@ -1,4 +1,4 @@
-export interface LightSettings {
+export interface LightState {
   state: boolean;
   brightness: number;
   speed?: number;

@@ -1,15 +1,19 @@
 #pragma once
 
 #include <vector>
-#include <SettingsService.h>
+#include <StatefulService.h>
+#include <SecurityManager.h>
+#include <WebSocketTxRx.h>
 
 #include "LightController.h"
 
-class LightControllerService : public SettingsService<LightController> {
+class LightControllerService : public StatefulService<LightController> {
+  WebSocketTxRx<LightController> webSocketService;
 public:
   LightControllerService(
     const std::vector<LightController::PinStatus> &pinsGpio, 
-    const std::vector<Effect> &effects);
+    const std::vector<Effect> &effects,
+    AsyncWebServer* webServer);
 
-  inline void loop() { _settings.loop(); }
+  inline void loop() { _state.loop(); }
 };
