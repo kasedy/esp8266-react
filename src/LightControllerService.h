@@ -9,12 +9,16 @@
 
 class LightControllerService : public StatefulService<LightController> {
   WebSocketTxRx<LightController> webSocketService;
+  uint32_t lastUpdatePushTime;
 public:
   LightControllerService(
     const std::vector<LightController::PinStatus> &pinsGpio, 
     const std::vector<Effect> &effects,
     AsyncWebServer* webServer);
 
-  inline void loop() { _state.loop(); }
+  void loop();
   inline LightController* get() { return &_state; }
+
+private:
+  void resetLastUpdatePushTime();
 };

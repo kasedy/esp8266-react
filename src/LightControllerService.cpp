@@ -34,13 +34,24 @@ LightControllerService::LightControllerService(
     const std::vector<LightController::PinStatus> &pinsGpio, 
     const std::vector<Effect> &effects,
     AsyncWebServer* webServer) : 
-  StatefulService<LightController>(pinsGpio, effects),
-  webSocketService(webSocketSerializer, 
-                   webSocketDeserializer, 
-                   this,
-                   webServer,
-                   LIGHT_SETTINGS_SOCKET_PATH) {
-    
+    StatefulService<LightController>(pinsGpio, effects),
+    webSocketService(webSocketSerializer, 
+                    webSocketDeserializer, 
+                    this,
+                    webServer,
+                    LIGHT_SETTINGS_SOCKET_PATH),
+    lastUpdatePushTime(0) {
+  addUpdateHandler(std::bind(LightControllerService::resetLastUpdatePushTime, this));
 }
 
+void LightControllerService::resetLastUpdatePushTime() {
+  lastUpdatePushTime = millis();
+  _state.resetDirtyFlag();
+}
 
+void LightControllerService::loop() {
+  if (_state.isDirty() && millis() - lastUpdatePushTime > 500) {
+    callUpdateHandlers(F("Internal change"));
+  }
+  _state.loop(); 
+}

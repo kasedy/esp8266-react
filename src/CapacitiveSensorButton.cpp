@@ -50,7 +50,7 @@ void CapacitiveSensorButton::loop() {
 
   if (now - lastAverageCalculation >= PROCESSING_INTERVAL) {
     if (touchSensorData.getCounter() == 0) {
-      // DBG("Failed to get average for capacitive sensor charge time\n");
+      DBG_INFO("Failed to get average for capacitive sensor charge time\n");
       return;
     }
 
@@ -86,49 +86,3 @@ void CapacitiveSensorButton::loop() {
     startHandlingLongPress = false;
   }
 }
-
-// void CapacitiveSensorButton::onClickHandler() {
-//   lightController->toggleState();
-// }
-
-// void CapacitiveSensorButton::onDoubleClickHandler() {
-//   lightController->setStateOn(true);
-//   lightController->nextAnimation();
-// }
-
-// void CapacitiveSensorButton::onLongPressHandler(bool isFirst) {
-//   uint8_t now = (uint8_t) millis();
-//   if (isFirst) {
-//     if (!lightController->isOn()) {
-//       lightController->setLightBrightness(0);
-//       lightController->setStateOn(true);
-//       lightScrollDirectionUp = true;
-//     } else {
-//       lightScrollDirectionUp = !lightScrollDirectionUp;
-//     }
-//   } else if ((uint8_t) (now - lastChangeBrightness) < 15) {
-//     return;
-//   }
-//   lastChangeBrightness = now;
-//   uint8_t brightness = lightController->getLightBrightness();
-//   uint8_t step = 2; 
-//   if (brightness < 30) {
-//     step = 1;
-//   } else if (brightness > 140 && brightness < 190) {
-//     step = 3;
-//   } else if (brightness >= 190) {
-//     step = 4;
-//   }
-//   if (brightness > 255 - step) {
-//     lightScrollDirectionUp = false;
-//   } else if (brightness < step) {
-//     lightScrollDirectionUp = true;
-//   }
-//   lightController->setLightBrightness(brightness + (lightScrollDirectionUp ? step : -step));
-// }
-
-// void CapacitiveSensorButton::onMultipleClicksHandler() {
-//   WiFi.disconnect(true);
-//   delay(200);
-//   ESP.reset();
-// }

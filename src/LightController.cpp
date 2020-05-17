@@ -14,7 +14,8 @@ LightController::LightController(const std::vector<PinStatus> &pinsGpio, const s
     stateOn(false),
     brightnessChanged(false),
     stateOnChanged(false),
-    effectChanged(false) {
+    effectChanged(false),
+    dirtyFlag(false) {
   for (int i = 0; i < getLedCount(); ++i) {
     for (int gpio : pins[i].gpio) {
       DBG("Set pin %d to output\n", gpio);
@@ -63,7 +64,7 @@ void LightController::setLightBrightness(uint8_t newMaxBrightness) {
     return;
   }
   brightness = newMaxBrightness;
-  brightnessChanged = true;
+  dirtyFlag = brightnessChanged = true;
 }
 
 void LightController::setAnimationSpeed(uint8_t newAnimationSpeed) {
@@ -71,7 +72,7 @@ void LightController::setAnimationSpeed(uint8_t newAnimationSpeed) {
     return;
   }
   animationSpeed = newAnimationSpeed;
-  animationSpeedChanged = true;
+  dirtyFlag = animationSpeedChanged = true;
 }
 
 void LightController::setStateOn(bool newStateOn) {
@@ -79,12 +80,12 @@ void LightController::setStateOn(bool newStateOn) {
     return;
   }
   stateOn = newStateOn;
-  stateOnChanged = true;
+  dirtyFlag = stateOnChanged = true;
 }
 
-  void LightController::toggleState() {
-    setStateOn(!isOn());
-  }
+void LightController::toggleState() {
+  setStateOn(!isOn());
+}
 
 void LightController::setAnimationByName(const char* effectName) {
   for (size_t animationIndex = 0; animationIndex < effects.size(); ++animationIndex) {
@@ -114,7 +115,7 @@ void LightController::setAnimationByIndex(uint8_t animationIndex) {
   }
   const Effect &effectInfo = effects[animationIndex];
   currentEffect = effectInfo.animationBuilder(this);
-  effectChanged = true;
+  dirty = effectChanged = true;
   currentAnimationIndex = animationIndex;
 }
 
