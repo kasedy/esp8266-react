@@ -9,7 +9,6 @@
 class HomeAssistantMqttBroker {
   LightControllerService* lightControllerService;
   HomeAssistantMqttService* homeAssistantMqttService;
-  AsyncMqttClient* mqttClient;
   MqttPubSub<LightController> mqttPubSub;
 public:
   HomeAssistantMqttBroker(LightControllerService* lightControllerService, 

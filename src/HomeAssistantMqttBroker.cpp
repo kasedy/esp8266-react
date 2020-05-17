@@ -17,7 +17,7 @@ static String getDeviceUniqueName() {
   WiFi.macAddress(mac);
   char macStr[WL_MAC_ADDR_LENGTH * 2 + 1] = { 0 };
   for (int i = 0; i < WL_MAC_ADDR_LENGTH; ++i) {
-    sprintf(&macStr[i * 2], "%02x", mac[i]);
+    snprintf_P(&macStr[i * 2], 3, PSTR("%02x"), mac[i]);
   }
   String result = String(F("bottle")) + macStr;
   DBG("Device name: %s\n", result.c_str());
@@ -65,7 +65,6 @@ HomeAssistantMqttBroker::HomeAssistantMqttBroker(LightControllerService* lightCo
                                                  AsyncMqttClient* mqttClient) :
     lightControllerService(lightControllerService),
     homeAssistantMqttService(homeAssistantMqttService),
-    mqttClient(mqttClient),
     mqttPubSub(homeAssistantMqttMessageSerialize, 
                homeAssistantMqttMessageDeserialize, 
                lightControllerService, 
@@ -77,6 +76,7 @@ HomeAssistantMqttBroker::HomeAssistantMqttBroker(LightControllerService* lightCo
 }
 
 void HomeAssistantMqttBroker::sendAutoDiscovery() {
+  AsyncMqttClient* mqttClient = mqttPubSub.mqttClient();
   if (!mqttClient->connected()) {
     return;
   }
