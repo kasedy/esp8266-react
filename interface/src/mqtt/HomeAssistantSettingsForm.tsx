@@ -33,7 +33,7 @@ class HomeAssistantSettingsForm extends React.Component<HomeAssistantSettingsFor
   render() {
     const { data, handleValueChange, saveData, loadData, classes } = this.props;
     return (
-      <div>
+      <Box>
         <Box mt={3}>
           <Typography>To make it work enable auto discovery feature in <code>configuration.yaml</code> of Home Assistant:</Typography>
         </Box>
@@ -65,7 +65,7 @@ class HomeAssistantSettingsForm extends React.Component<HomeAssistantSettingsFor
             </FormButton>
           </FormActions>
         </ValidatorForm>
-      </div>
+      </Box>
     );
   }
 }

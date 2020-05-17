@@ -1,4 +1,4 @@
-import { ENDPOINT_ROOT } from './Env';
+import { ENDPOINT_ROOT, WEB_SOCKET_ROOT } from './Env';
 
 export const NTP_STATUS_ENDPOINT = ENDPOINT_ROOT + "ntpStatus";
 export const NTP_SETTINGS_ENDPOINT = ENDPOINT_ROOT + "ntpSettings";
@@ -17,3 +17,5 @@ export const SIGN_IN_ENDPOINT = ENDPOINT_ROOT + "signIn";
 export const VERIFY_AUTHORIZATION_ENDPOINT = ENDPOINT_ROOT + "verifyAuthorization";
 export const SECURITY_SETTINGS_ENDPOINT = ENDPOINT_ROOT + "securitySettings";
 export const RESTART_ENDPOINT = ENDPOINT_ROOT + "restart";
+
+export const LIGHT_SETTINGS_WEBSOCKET_ENDPOINT = WEB_SOCKET_ROOT + "light";
