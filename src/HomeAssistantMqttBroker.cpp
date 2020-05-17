@@ -20,7 +20,6 @@ static String getDeviceUniqueName() {
     snprintf_P(&macStr[i * 2], 3, PSTR("%02x"), mac[i]);
   }
   String result = String(F("bottle")) + macStr;
-  DBG("Device name: %s\n", result.c_str());
   return result;
 }
 
