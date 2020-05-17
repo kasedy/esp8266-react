@@ -32,11 +32,11 @@ LightController::LightController(const std::vector<PinStatus> &pinsGpio, const s
 LightController::~LightController() {
 }
 
-size_t LightController::getAnimationCount() {
+size_t LightController::getAnimationCount() const {
   return effects.size();
 }
 
-const char* LightController::getAnimationName(size_t index) {
+const char* LightController::getAnimationName(size_t index) const {
   return effects[index].name;
 }
 

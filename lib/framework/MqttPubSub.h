@@ -5,6 +5,7 @@
 #include <JsonSerializer.h>
 #include <JsonDeserializer.h>
 #include <AsyncMqttClient.h>
+#include <HardwareSerial.h>
 
 #define MAX_MESSAGE_SIZE 1024
 #define MQTT_ORIGIN_ID "mqtt"
@@ -49,6 +50,7 @@ class MqttPub : virtual public MqttConnector<T> {
   String _pubTopic;
 
   void publish() {
+    Serial.printf("About to publishing mqtt. %d %s\n", MqttConnector<T>::_mqttClient->connected(), _pubTopic.c_str());
     if (_pubTopic.length() > 0 && MqttConnector<T>::_mqttClient->connected()) {
       // serialize to json doc
       DynamicJsonDocument json(MAX_MESSAGE_SIZE);
@@ -58,6 +60,7 @@ class MqttPub : virtual public MqttConnector<T> {
       // serialize to string
       String payload;
       serializeJson(json, payload);
+      Serial.printf("Published mqtt: %s\n", payload.c_str());
 
       // publish the payload
       MqttConnector<T>::_mqttClient->publish(_pubTopic.c_str(), 0, false, payload.c_str());

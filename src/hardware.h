@@ -23,6 +23,3 @@
 #endif
 
 #define LEAD_INDICATOR_PIN 2
-
-const char *getDeviceSafeName();
-#define DEVICE_SAFE_NAME getDeviceSafeName()

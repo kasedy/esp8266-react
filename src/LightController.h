@@ -39,9 +39,9 @@ public:
   void toggleState();
 
   inline bool supportsAnimation() const { return !effects.empty(); }
-  size_t getAnimationCount();
+  size_t getAnimationCount() const;
   uint8_t getCurrentAnimationIndex();
-  const char* getAnimationName(size_t index);
+  const char* getAnimationName(size_t index) const;
   const char* getCurrentAnimationName() const;
   void nextAnimation();
   void setAnimationByIndex(uint8_t animationIndex);

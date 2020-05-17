@@ -16,4 +16,5 @@ public:
     AsyncWebServer* webServer);
 
   inline void loop() { _state.loop(); }
+  inline const LightController& get() const { return _state; }
 };
