@@ -34,5 +34,6 @@ void setup() {
 
 void loop() {
   esp8266React->loop();
+  capacitiveSensorButtonManager->loop();
   lightControllerService->loop();
 }

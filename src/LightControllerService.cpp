@@ -7,6 +7,7 @@ static const char *EFFECT_PARAM PROGMEM = "effect";
 static const char *EFFECT_LIST_PARAM PROGMEM = "effect_list";
 
 #define LIGHT_SETTINGS_SOCKET_PATH "/ws/light"
+#define UPDATE_THROTTLE_MS 100
 
 static void webSocketSerializer(LightController& lightController, JsonObject& json) {
   json[FPSTR(STATE_PARAM)] = lightController.isOn();
@@ -41,7 +42,7 @@ LightControllerService::LightControllerService(
                     webServer,
                     LIGHT_SETTINGS_SOCKET_PATH),
     lastUpdatePushTime(0) {
-  addUpdateHandler(std::bind(LightControllerService::resetLastUpdatePushTime, this));
+  addUpdateHandler(std::bind(&LightControllerService::resetLastUpdatePushTime, this));
 }
 
 void LightControllerService::resetLastUpdatePushTime() {
@@ -50,7 +51,7 @@ void LightControllerService::resetLastUpdatePushTime() {
 }
 
 void LightControllerService::loop() {
-  if (_state.isDirty() && millis() - lastUpdatePushTime > 500) {
+  if (_state.isDirty() && millis() - lastUpdatePushTime > UPDATE_THROTTLE_MS) {
     callUpdateHandlers(F("Internal change"));
   }
   _state.loop(); 

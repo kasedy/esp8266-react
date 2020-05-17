@@ -76,12 +76,16 @@ void CapacitiveSensorButton::loop() {
     lastAverageCalculation = now;
   }
 
-  if (!isPressed && now - lastUpTime > DOUBLE_CLICK_TIME_THRESHOLD) {
+  if (!isPressed && rapidClickCounter != 0 && now - lastUpTime > DOUBLE_CLICK_TIME_THRESHOLD) {
+    DBG("Click %d\n", rapidClickCounter);
+    // 1 - single click, 2 - double click, etc...
     handler(rapidClickCounter, EventType::Click);
+    rapidClickCounter = 0;
   }
 
   if (isPressed && now - lastDownTime > CLICK_TIME_THRESHOLD) {
     DBG("Long press %d\n", rapidClickCounter);
+    // 0 - push and hold, 1 - click and hold, 2 - double click and hold, etc...
     handler(rapidClickCounter, startHandlingLongPress ? EventType::HoldStart : EventType::Holding);
     startHandlingLongPress = false;
   }

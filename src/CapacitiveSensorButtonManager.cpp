@@ -5,7 +5,7 @@ using namespace std::placeholders;
 CapacitiveSensorButtonManager::CapacitiveSensorButtonManager(uint8_t sendPin, 
                                                              uint8_t receivePin, 
                                                              LightControllerService* lightControllerService) :
-    capacitiveSensorButton(sendPin, receivePin, std::bind(CapacitiveSensorButtonManager::handler, this, _1, _2)),
+    capacitiveSensorButton(sendPin, receivePin, std::bind(&CapacitiveSensorButtonManager::handler, this, _1, _2)),
     lightController(lightControllerService->get()) {
 }
 

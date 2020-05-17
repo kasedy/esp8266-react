@@ -115,7 +115,7 @@ void LightController::setAnimationByIndex(uint8_t animationIndex) {
   }
   const Effect &effectInfo = effects[animationIndex];
   currentEffect = effectInfo.animationBuilder(this);
-  dirty = effectChanged = true;
+  dirtyFlag = effectChanged = true;
   currentAnimationIndex = animationIndex;
 }
 
