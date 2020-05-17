@@ -80,9 +80,9 @@ void HomeAssistantMqttBroker::sendAutoDiscovery() {
     return;
   }
 
-  const LightController& lightController = lightControllerService->get();
+  const LightController *lightController = lightControllerService->get();
   const HomeAssistantMqttSettings& homeAssistantSettings = homeAssistantMqttService->get();
-  bool supportsAnimation = lightController.supportsAnimation();
+  bool supportsAnimation = lightController->supportsAnimation();
 
   DynamicJsonDocument doc(1024);
   doc[F("schema")] = F("json");
@@ -99,8 +99,8 @@ void HomeAssistantMqttBroker::sendAutoDiscovery() {
 
   if (supportsAnimation) {
     JsonArray effectList = doc.createNestedArray(F("effect_list"));
-    for (size_t i = 0; i < lightController.getAnimationCount(); ++i) {
-      effectList.add(lightController.getAnimationName(i));
+    for (size_t i = 0; i < lightController->getAnimationCount(); ++i) {
+      effectList.add(lightController->getAnimationName(i));
     }
   }
   

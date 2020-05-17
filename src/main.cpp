@@ -2,15 +2,17 @@
 #include <FS.h>
 
 #include "effects.h"
-#include "LightControllerService.h"
-#include "HomeAssistantMqttService.h"
+#include "CapacitiveSensorButtonManager.h"
 #include "HomeAssistantMqttBroker.h"
+#include "HomeAssistantMqttService.h"
+#include "LightControllerService.h"
 
 AsyncWebServer *webServer;
 ESP8266React *esp8266React;
 LightControllerService *lightControllerService;
 HomeAssistantMqttService *homeAssistantMqttService;
 HomeAssistantMqttBroker *homeAssistantMqttBroker;
+CapacitiveSensorButtonManager *capacitiveSensorButtonManager;
 
 void setup() {
 #if LOGGING
@@ -22,6 +24,7 @@ void setup() {
   lightControllerService = new LightControllerService(LED_PINS, EFFECT_LIST, webServer);
   homeAssistantMqttService = new HomeAssistantMqttService(lightControllerService, webServer, &SPIFFS, esp8266React->getSecurityManager());
   homeAssistantMqttBroker = new HomeAssistantMqttBroker(lightControllerService, homeAssistantMqttService, esp8266React->getMqttClient());
+  capacitiveSensorButtonManager = new CapacitiveSensorButtonManager(CAPACITIVE_SENSOR_SEND_PIN, CAPACITIVE_SENSOR_RECEIVE_PIN, lightControllerService);
 
   SPIFFS.begin();
   esp8266React->begin();
