@@ -75,7 +75,7 @@ HomeAssistantMqttBroker::HomeAssistantMqttBroker(LightControllerService* lightCo
 }
 
 void HomeAssistantMqttBroker::sendAutoDiscovery() {
-  AsyncMqttClient* mqttClient = mqttPubSub.mqttClient();
+  AsyncMqttClient* mqttClient = mqttPubSub.getMqttClient();
   if (!mqttClient->connected()) {
     return;
   }
