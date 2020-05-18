@@ -10,8 +10,8 @@ import SdStorageIcon from '@material-ui/icons/SdStorage';
 import DataUsageIcon from '@material-ui/icons/DataUsage';
 import AutorenewIcon from '@material-ui/icons/Autorenew';
 import RefreshIcon from '@material-ui/icons/Refresh';
-import ScatterPlotIcon from '@material-ui/icons/ScatterPlot';
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import GradientIcon from '@material-ui/icons/Gradient';
+import BuildIcon from '@material-ui/icons/Build';
 
 import { redirectingAuthorizedFetch } from '../authentication';
 import { RestFormProps, FormButton, FormActions } from '../components';
@@ -58,7 +58,7 @@ class SystemStatusForm extends Component<SystemStatusFormProps, SystemStatusForm
         <ListItem >
           <ListItemAvatar>
             <Avatar>
-              <ThumbUpIcon />
+              <BuildIcon />
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary="Framework Sdk Version" secondary={data.sdk_version} />
@@ -76,7 +76,7 @@ class SystemStatusForm extends Component<SystemStatusFormProps, SystemStatusForm
         <ListItem >
           <ListItemAvatar>
             <Avatar>
-              <ScatterPlotIcon />
+              <GradientIcon />
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary="Heap Fragmentation" secondary={data.heap_fragmentation + '%'} />
