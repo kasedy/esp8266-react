@@ -1,4 +1,5 @@
 #include <SystemStatus.h>
+#include <algorithm>
 
 SystemStatus::SystemStatus(AsyncWebServer* server, SecurityManager* securityManager) {
   server->on(SYSTEM_STATUS_SERVICE_PATH,
@@ -12,9 +13,12 @@ void SystemStatus::systemStatus(AsyncWebServerRequest* request) {
   JsonObject root = response->getRoot();
 #ifdef ESP32
   root["esp_platform"] = "esp32";
+  root["heap_fragmentation"] = 100 - ESP.getMaxAllocHeap() * 100 / ESP.getFreeHeap();
 #elif defined(ESP8266)
   root["esp_platform"] = "esp8266";
+  root["heap_fragmentation"] = 100 - ESP.getMaxFreeBlockSize() * 100 / ESP.getFreeHeap();
 #endif
+
   root["cpu_freq_mhz"] = ESP.getCpuFreqMHz();
   root["free_heap"] = ESP.getFreeHeap();
   root["sketch_size"] = ESP.getSketchSize();
@@ -22,6 +26,7 @@ void SystemStatus::systemStatus(AsyncWebServerRequest* request) {
   root["sdk_version"] = ESP.getSdkVersion();
   root["flash_chip_size"] = ESP.getFlashChipSize();
   root["flash_chip_speed"] = ESP.getFlashChipSpeed();
+
   response->setLength();
   request->send(response);
 }
