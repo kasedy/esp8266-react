@@ -5,7 +5,7 @@
 
 /**
  * May return false to prevent unnecessary update propagation in case if 
- * settings object was not change
+ * settings object was not changed.
 */
 template <class T>
 using JsonDeserializer = bool (*)(JsonObject& root, T& settings);
