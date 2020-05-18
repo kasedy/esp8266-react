@@ -27,10 +27,11 @@ class LightMqttSettings {
     root["unique_id"] = settings.uniqueId;
   }
 
-  static void deserialize(JsonObject& root, LightMqttSettings& settings) {
+  static bool deserialize(JsonObject& root, LightMqttSettings& settings) {
     settings.mqttPath = root["mqtt_path"] | defaultDeviceValue("homeassistant/light/");
     settings.name = root["name"] | defaultDeviceValue("light-");
     settings.uniqueId = root["unique_id"] | defaultDeviceValue("light-");
+    return true;
   }
 };
 

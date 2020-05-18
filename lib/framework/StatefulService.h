@@ -76,12 +76,13 @@ class StatefulService {
 #endif
   }
 
-  void update(std::function<void(T&)> callback, String originId) {
+  void update(std::function<bool(T&)> callback, String originId) {
 #ifdef ESP32
     xSemaphoreTakeRecursive(_accessMutex, portMAX_DELAY);
 #endif
-    callback(_state);
-    callUpdateHandlers(originId);
+    if (callback(_state)) {
+      callUpdateHandlers(originId);
+    }
 #ifdef ESP32
     xSemaphoreGiveRecursive(_accessMutex);
 #endif
@@ -91,8 +92,9 @@ class StatefulService {
 #ifdef ESP32
     xSemaphoreTakeRecursive(_accessMutex, portMAX_DELAY);
 #endif
-    deserializer(jsonObject, _state);
-    callUpdateHandlers(originId);
+    if (deserializer(jsonObject, _state)) {
+      callUpdateHandlers(originId);
+    }
 #ifdef ESP32
     xSemaphoreGiveRecursive(_accessMutex);
 #endif

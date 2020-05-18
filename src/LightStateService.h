@@ -35,17 +35,19 @@ class LightState {
     root["led_on"] = settings.ledOn;
   }
 
-  static void deserialize(JsonObject& root, LightState& settings) {
+  static bool deserialize(JsonObject& root, LightState& settings) {
     settings.ledOn = root["led_on"] | DEFAULT_LED_STATE;
+    return true;
   }
 
   static void haSerialize(LightState& settings, JsonObject& root) {
     root["state"] = settings.ledOn ? ON_STATE : OFF_STATE;
   }
 
-  static void haDeserialize(JsonObject& root, LightState& settings) {
+  static bool haDeserialize(JsonObject& root, LightState& settings) {
     String state = root["state"];
     settings.ledOn = strcmp(ON_STATE, state.c_str()) ? false : true;
+    return true;
   }
 };
 

@@ -405,9 +405,10 @@ class LightState {
     root["brightness"] = state.brightness;
   }
 
-  static void deserialize(JsonObject& root, LightState& state) {
+  static bool deserialize(JsonObject& root, LightState& state) {
     state.on = root["on"] | false;
     state.brightness = root["brightness"] | 255;
+    return true;
   }
 };
 ```

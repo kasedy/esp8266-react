@@ -40,7 +40,7 @@ class WiFiSettings {
     JsonUtils::writeIP(root, "dns_ip_2", settings.dnsIP2);
   }
 
-  static void deserialize(JsonObject& root, WiFiSettings& settings) {
+  static bool deserialize(JsonObject& root, WiFiSettings& settings) {
     settings.ssid = root["ssid"] | "";
     settings.password = root["password"] | "";
     settings.hostname = root["hostname"] | "";
@@ -66,6 +66,7 @@ class WiFiSettings {
         (settings.localIP == INADDR_NONE || settings.gatewayIP == INADDR_NONE || settings.subnetMask == INADDR_NONE)) {
       settings.staticIPConfig = false;
     }
+    return true;
   }
 };
 

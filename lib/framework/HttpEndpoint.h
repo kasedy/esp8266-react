@@ -109,16 +109,19 @@ class HttpPostEndpoint {
     if (json.is<JsonObject>()) {
       AsyncJsonResponse* response = new AsyncJsonResponse(false, MAX_CONTENT_LENGTH);
 
-      // use callback to update the settings once the response is complete
-      request->onDisconnect([this]() { _statefulService->callUpdateHandlers(HTTP_ENDPOINT_ORIGIN_ID); });
-
+      bool needUpdate = false;
       // update the settings, deferring the call to the update handlers to when the response is complete
       _statefulService->updateWithoutPropagation([&](T& settings) {
         JsonObject jsonObject = json.as<JsonObject>();
-        _jsonDeserializer(jsonObject, settings);
+        needUpdate = _jsonDeserializer(jsonObject, settings);
         jsonObject = response->getRoot().to<JsonObject>();
         _jsonSerializer(settings, jsonObject);
       });
+
+      if (needUpdate) {
+        // use callback to update the settings once the response is complete
+        request->onDisconnect([this]() { _statefulService->callUpdateHandlers(HTTP_ENDPOINT_ORIGIN_ID); });
+      }
 
       // write the response to the client
       response->setLength();

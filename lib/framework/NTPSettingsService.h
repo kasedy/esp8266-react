@@ -34,11 +34,12 @@ class NTPSettings {
     root["tz_format"] = settings.tzFormat;
   }
 
-  static void deserialize(JsonObject& root, NTPSettings& settings) {
+  static bool deserialize(JsonObject& root, NTPSettings& settings) {
     settings.enabled = root["enabled"] | NTP_SETTINGS_SERVICE_DEFAULT_ENABLED;
     settings.server = root["server"] | NTP_SETTINGS_SERVICE_DEFAULT_SERVER;
     settings.tzLabel = root["tz_label"] | NTP_SETTINGS_SERVICE_DEFAULT_TIME_ZONE_LABEL;
     settings.tzFormat = root["tz_format"] | NTP_SETTINGS_SERVICE_DEFAULT_TIME_ZONE_FORMAT;
+    return true;
   }
 };
 

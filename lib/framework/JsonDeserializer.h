@@ -3,7 +3,11 @@
 
 #include <ArduinoJson.h>
 
+/**
+ * May return false to prevent unnecessary update propagation in case if 
+ * settings object was not change
+*/
 template <class T>
-using JsonDeserializer = void (*)(JsonObject& root, T& settings);
+using JsonDeserializer = bool (*)(JsonObject& root, T& settings);
 
 #endif  // end JsonDeserializer
