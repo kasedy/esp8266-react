@@ -33,7 +33,7 @@ class APSettings {
     root["password"] = settings.password;
   }
 
-  static void deserialize(JsonObject& root, APSettings& settings) {
+  static bool deserialize(JsonObject& root, APSettings& settings) {
     settings.provisionMode = root["provision_mode"] | AP_MODE_ALWAYS;
     switch (settings.provisionMode) {
       case AP_MODE_ALWAYS:
@@ -45,6 +45,7 @@ class APSettings {
     }
     settings.ssid = root["ssid"] | AP_DEFAULT_SSID;
     settings.password = root["password"] | AP_DEFAULT_PASSWORD;
+    return true;
   }
 };
 

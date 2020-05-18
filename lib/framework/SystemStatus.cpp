@@ -1,5 +1,4 @@
 #include <SystemStatus.h>
-#include <algorithm>
 
 SystemStatus::SystemStatus(AsyncWebServer* server, SecurityManager* securityManager) {
   server->on(SYSTEM_STATUS_SERVICE_PATH,

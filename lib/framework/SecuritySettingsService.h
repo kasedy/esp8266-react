@@ -30,7 +30,7 @@ class SecuritySettings {
     }
   }
 
-  static void deserialize(JsonObject& root, SecuritySettings& settings) {
+  static bool deserialize(JsonObject& root, SecuritySettings& settings) {
     // secret
     settings.jwtSecret = root["jwt_secret"] | DEFAULT_JWT_SECRET;
 
@@ -44,6 +44,7 @@ class SecuritySettings {
       settings.users.push_back(User(DEFAULT_ADMIN_USERNAME, DEFAULT_ADMIN_USERNAME, true));
       settings.users.push_back(User(DEFAULT_GUEST_USERNAME, DEFAULT_GUEST_USERNAME, false));
     }
+    return true;
   }
 };
 

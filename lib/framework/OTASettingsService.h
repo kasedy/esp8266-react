@@ -33,10 +33,11 @@ class OTASettings {
     root["password"] = settings.password;
   }
 
-  static void deserialize(JsonObject& root, OTASettings& settings) {
+  static bool deserialize(JsonObject& root, OTASettings& settings) {
     settings.enabled = root["enabled"] | DEFAULT_OTA_ENABLED;
     settings.port = root["port"] | DEFAULT_OTA_PORT;
     settings.password = root["password"] | DEFAULT_OTA_PASSWORD;
+    return true;
   }
 };
 

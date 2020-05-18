@@ -60,7 +60,7 @@ class MqttSettings {
     root["max_topic_length"] = settings.maxTopicLength;
   }
 
-  static void deserialize(JsonObject& root, MqttSettings& settings) {
+  static bool deserialize(JsonObject& root, MqttSettings& settings) {
     settings.enabled = root["enabled"] | MQTT_SETTINGS_SERVICE_DEFAULT_ENABLED;
     settings.host = root["host"] | MQTT_SETTINGS_SERVICE_DEFAULT_HOST;
     settings.port = root["port"] | MQTT_SETTINGS_SERVICE_DEFAULT_PORT;
@@ -70,6 +70,7 @@ class MqttSettings {
     settings.keepAlive = root["keep_alive"] | MQTT_SETTINGS_SERVICE_DEFAULT_KEEP_ALIVE;
     settings.cleanSession = root["clean_session"] | MQTT_SETTINGS_SERVICE_DEFAULT_CLEAN_SESSION;
     settings.maxTopicLength = root["max_topic_length"] | MQTT_SETTINGS_SERVICE_DEFAULT_MAX_TOPIC_LENGTH;
+    return true;
   }
 };
 
