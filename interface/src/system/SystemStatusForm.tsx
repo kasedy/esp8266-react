@@ -10,6 +10,8 @@ import SdStorageIcon from '@material-ui/icons/SdStorage';
 import DataUsageIcon from '@material-ui/icons/DataUsage';
 import AutorenewIcon from '@material-ui/icons/Autorenew';
 import RefreshIcon from '@material-ui/icons/Refresh';
+import ScatterPlotIcon from '@material-ui/icons/ScatterPlot';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 
 import { redirectingAuthorizedFetch } from '../authentication';
 import { RestFormProps, FormButton, FormActions } from '../components';
@@ -56,6 +58,15 @@ class SystemStatusForm extends Component<SystemStatusFormProps, SystemStatusForm
         <ListItem >
           <ListItemAvatar>
             <Avatar>
+              <ThumbUpIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="Framework Sdk Version" secondary={data.sdk_version} />
+        </ListItem>
+        <Divider variant="inset" component="li" />
+        <ListItem >
+          <ListItemAvatar>
+            <Avatar>
               <MemoryIcon />
             </Avatar>
           </ListItemAvatar>
@@ -65,10 +76,19 @@ class SystemStatusForm extends Component<SystemStatusFormProps, SystemStatusForm
         <ListItem >
           <ListItemAvatar>
             <Avatar>
+              <ScatterPlotIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="Heap Fragmentation" secondary={data.heap_fragmentation + '%'} />
+        </ListItem>
+        <Divider variant="inset" component="li" />
+        <ListItem >
+          <ListItemAvatar>
+            <Avatar>
               <DataUsageIcon />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="Sketch Size (used/max)" secondary={data.sketch_size + ' / ' + data.free_sketch_space + ' bytes'} />
+          <ListItemText primary={"Sketch Size - " + (data.sketch_size * 100 / data.free_sketch_space).toFixed(0) + "%"} secondary={data.sketch_size + ' / ' + data.free_sketch_space + ' bytes'} />
         </ListItem>
         <Divider variant="inset" component="li" />
         <ListItem >
