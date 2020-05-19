@@ -69,11 +69,3 @@ void RandomSynchronousSplashes::resetTimer(unsigned long newTime) {
   brightnessSettingsIndex = random(brightnessSettings.size());
   timeToChangeBrightness = newTime;
 }
-
-Effect RandomSynchronousSplashes::effect(const char* name, int8_t speed) {
-  return {name, [=] (LightController *lightController) -> BaseAnimation* { return new RandomSynchronousSplashes(lightController, speed); } };
-}
-
-Effect RandomSynchronousSplashes::effect(const char* name, std::vector<BrightnessSettings> brightnessSettings, int8_t speed) {
-  return {name, [=] (LightController *lightController) -> BaseAnimation* { return new RandomSynchronousSplashes(lightController, brightnessSettings, speed); }, 1};
-}

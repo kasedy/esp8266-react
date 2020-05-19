@@ -73,11 +73,3 @@ void RandomAsynchronousSplashes::resetTimers(unsigned long newTime) {
     ledInfo[index].timeToChangeBrightness = newTime;
   }
 }
-
-Effect RandomAsynchronousSplashes::effect(const char* name, int8_t speed) {
-  return {name, [=] (LightController *lightController) -> BaseAnimation* { return new RandomAsynchronousSplashes(lightController, speed); } };
-}
-
-Effect RandomAsynchronousSplashes::effect(const char* name, std::vector<BrightnessSettings> brightnessSettings, int8_t speed) {
-  return {name, [=] (LightController *lightController) -> BaseAnimation* { return new RandomAsynchronousSplashes(lightController, brightnessSettings, speed); }, 1};
-}

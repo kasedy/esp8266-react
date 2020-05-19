@@ -21,7 +21,3 @@ void NoAnimation::handle() {
     }
   }
 }
-
-Effect NoAnimation::effect(const char *name) {
-  return {name, [] (LightController *lightController) -> BaseAnimation* { return new NoAnimation(lightController); }, 1};
-}

@@ -79,7 +79,3 @@ unsigned long FadeCycle::getUpdateInterval() {
   } 
   return refreshInterval;
 }
-  
-Effect FadeCycle::effect(const char* name) {
-  return {name, [] (LightController *lightController) -> BaseAnimation* { return new FadeCycle(lightController); }, 1};
-}

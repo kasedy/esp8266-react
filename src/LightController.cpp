@@ -1,8 +1,8 @@
 #include "LightController.h"
 
 #include "helpers.h"
-
-#include "animations/all.h"
+#include "animations/Effect.h"
+#include "animations/NoAnimation.h"
 
 LightController::LightController(const std::vector<PinStatus> &pinsGpio, const std::vector<Effect> &effects) :
     brightness(255),
@@ -37,7 +37,7 @@ size_t LightController::getAnimationCount() const {
   return effects.size();
 }
 
-const char* LightController::getAnimationName(size_t index) const {
+String LightController::getAnimationName(size_t index) const {
   return effects[index].name;
 }
 
@@ -87,9 +87,9 @@ void LightController::toggleState() {
   setStateOn(!isOn());
 }
 
-void LightController::setAnimationByName(const char* effectName) {
+void LightController::setAnimationByName(String effectName) {
   for (size_t animationIndex = 0; animationIndex < effects.size(); ++animationIndex) {
-    if (strcmp(effects[animationIndex].name, effectName) == 0) {
+    if (effectName == effects[animationIndex].name) {
       setAnimationByIndex(animationIndex);
       return;
     }
@@ -139,7 +139,7 @@ uint8_t LightController::getCurrentAnimationIndex() {
   return currentAnimationIndex;
 }
 
-const char* LightController::getCurrentAnimationName() const {
+String LightController::getCurrentAnimationName() const {
   return effects[currentAnimationIndex].name;
 }
 

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "animations/BaseAnimation.h"
-
 #include <stdint.h>
+
+#include "animations/BaseAnimation.h"
 
 class RandomSplashesCompensated : public BaseAnimation {
   unsigned long timeToChangeBrightness;
@@ -12,9 +12,9 @@ class RandomSplashesCompensated : public BaseAnimation {
   void resetTimers(unsigned long timeToChangeBrightness);
 
 public:
+  constexpr static uint8_t pinsRequires = 3;
+
   RandomSplashesCompensated(LightController *lightController);
   virtual ~RandomSplashesCompensated();
   virtual void handle() override;
-
-  static Effect effect(const char* name);
 };

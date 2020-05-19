@@ -1,9 +1,9 @@
 #pragma once
 
-#include "animations/BaseAnimation.h"
-
 #include <stdint.h>
 #include <vector>
+
+#include "animations/BaseAnimation.h"
 
 class RandomSplashes : public BaseAnimation {
 public:

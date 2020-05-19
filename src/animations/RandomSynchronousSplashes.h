@@ -1,9 +1,9 @@
 #pragma once
 
-#include "animations/RandomSplashes.h"
-
 #include <stdint.h>
 #include <vector>
+
+#include "animations/RandomSplashes.h"
 
 class RandomSynchronousSplashes : public RandomSplashes {
 private:
@@ -13,6 +13,8 @@ private:
   void resetTimer(unsigned long timeToChangeBrightness);
   BrightnessSettings nextBrightness();
 public:
+  constexpr static uint8_t pinsRequires = 1;
+  
   RandomSynchronousSplashes(
     LightController *lightController,
     int8_t speed = 0);
@@ -22,7 +24,4 @@ public:
     int8_t speed = 0);
   virtual ~RandomSynchronousSplashes();
   virtual void handle() override;
-
-  static Effect effect(const char* name, int8_t speed = 0);
-  static Effect effect(const char* name, std::vector<BrightnessSettings> brightnessSettings, int8_t speed = 0);
 };

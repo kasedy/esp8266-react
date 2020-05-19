@@ -1,8 +1,8 @@
 #pragma once
 
-#include "animations/BaseAnimation.h"
-
 #include <stdint.h>
+
+#include "animations/BaseAnimation.h"
 
 /*
  * Fade on switch on-off.
@@ -17,9 +17,9 @@ class SingleLedFade : public BaseAnimation {
   uint8_t getBrightness(int led) const;
   unsigned long getUpdateInterval();
 public:
+  constexpr static uint8_t pinsRequires = 3;
+
   SingleLedFade(LightController *lightController, uint8_t brightnessOverlap);
   virtual ~SingleLedFade();
   virtual void handle() override;
-
-  static Effect effect(const char* name, uint8_t brightnessOverlap);
 };

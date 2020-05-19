@@ -1,7 +1,8 @@
 #pragma once
 
-#include "animations/BaseAnimation.h"
 #include <stdint.h>
+
+#include "animations/BaseAnimation.h"
 
 /*
  * Fade evenly from max brigtness to 0 and back;
@@ -15,9 +16,9 @@ class FadeCycle : public BaseAnimation {
   unsigned long getUpdateInterval();
 
 public:
+  constexpr static uint8_t pinsRequires = 1;
+
   FadeCycle(LightController *lightController);
   virtual ~FadeCycle();
   virtual void handle() override;
-
-  static Effect effect(const char* name);
 };

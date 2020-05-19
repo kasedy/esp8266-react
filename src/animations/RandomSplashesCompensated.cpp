@@ -93,7 +93,3 @@ unsigned long RandomSplashesCompensated::getUpdateInterval() {
   } 
   return refreshInterval;
 }
-
-Effect RandomSplashesCompensated::effect(const char* name) {
-  return {name, [] (LightController *lightController) -> BaseAnimation* { return new RandomSplashesCompensated(lightController); }, 3};
-}

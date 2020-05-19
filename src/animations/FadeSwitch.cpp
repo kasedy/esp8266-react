@@ -55,7 +55,3 @@ unsigned long FadeSwitch::getUpdateInterval() {
   } 
   return refreshInterval;
 }
-
-Effect FadeSwitch::effect(const char* name) {
-  return {name, [] (LightController *lightController) -> BaseAnimation* { return new FadeSwitch(lightController); }, 1};
-}

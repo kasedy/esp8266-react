@@ -48,11 +48,11 @@ public:
   inline bool supportsAnimation() const { return !effects.empty(); }
   size_t getAnimationCount() const;
   uint8_t getCurrentAnimationIndex();
-  const char* getAnimationName(size_t index) const;
-  const char* getCurrentAnimationName() const;
+  String getAnimationName(size_t index) const;
+  String getCurrentAnimationName() const;
   void nextAnimation();
   void setAnimationByIndex(uint8_t animationIndex);
-  void setAnimationByName(const char* effectName);
+  void setAnimationByName(String effectName);
 
   // Brightness
   void setLightBrightness(uint8_t newMaxBrightness);

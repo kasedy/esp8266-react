@@ -7,9 +7,9 @@
  */ 
 class NoAnimation : public BaseAnimation {
 public:
+  constexpr static uint8_t pinsRequires = 1;
+
   NoAnimation(LightController *lightController);
   virtual ~NoAnimation();
   virtual void handle() override;
-
-  static Effect effect(const char* name);
 };

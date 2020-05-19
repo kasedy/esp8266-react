@@ -1,6 +1,7 @@
 #include "animations/SingleLedFade.h"
 
 #include <functional>
+
 #include "LightController.h"
 
 SingleLedFade::SingleLedFade(LightController *lightController, uint8_t brightnessOverlap) : 
@@ -93,8 +94,4 @@ unsigned long SingleLedFade::getUpdateInterval() {
     refreshInterval = refreshInterval * 10 / (multiplier + 10);
   } 
   return refreshInterval;
-}
-
-Effect SingleLedFade::effect(const char* name, uint8_t brightnessOverlap) {
-  return {name, [=] (LightController *lightController) -> BaseAnimation* { return new SingleLedFade(lightController, brightnessOverlap); }, 2};
 }

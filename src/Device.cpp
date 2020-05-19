@@ -1,6 +1,6 @@
 #include "Device.h"
 
-#include "effects.h"
+#include "animations/AllEffects.h"
 
 Device::Device(FS* fs) :
     webServer(80),
