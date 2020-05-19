@@ -5,14 +5,14 @@
 #include "animations/NoAnimation.h"
 
 LightController::LightController(const std::vector<PinStatus> &pinsGpio, const std::vector<Effect> &effects) :
-    brightness(255),
+    lightBrightness(255),
     animationSpeed(255 / 2),
     pins(pinsGpio), 
     effects(filter_vector(effects, [&](Effect e){ return pinsGpio.size() >= e.pinsRequires; })),
     currentEffect(nullptr),
     currentAnimationIndex(-1),
     stateOn(false),
-    brightnessChanged(false),
+    lightBrightnessChanged(false),
     stateOnChanged(false),
     effectChanged(false),
     dirtyFlag(false) {
@@ -30,21 +30,6 @@ LightController::LightController(const std::vector<PinStatus> &pinsGpio, const s
   }
 }
 
-LightController::~LightController() {
-}
-
-size_t LightController::getAnimationCount() const {
-  return effects.size();
-}
-
-String LightController::getAnimationName(size_t index) const {
-  return effects[index].name;
-}
-
-uint8_t LightController::getLedCount() const {
-  return pins.size();
-}   
-
 void LightController::setPinValue(uint8_t pinIndex, uint8_t brightness) {
   int pwmDuty = map(brightness, 0, 255, 0, 1023);
   for (int gpio : pins[pinIndex].gpio) {
@@ -60,11 +45,11 @@ void LightController::setAllPinValue(uint8_t brightness) {
 }
 
 void LightController::setLightBrightness(uint8_t newMaxBrightness) {
-  if (brightness == newMaxBrightness) {
+  if (lightBrightness == newMaxBrightness) {
     return;
   }
-  brightness = newMaxBrightness;
-  dirtyFlag = brightnessChanged = true;
+  lightBrightness = newMaxBrightness;
+  dirtyFlag = lightBrightnessChanged = true;
 }
 
 void LightController::setAnimationSpeed(uint8_t newAnimationSpeed) {
@@ -73,18 +58,6 @@ void LightController::setAnimationSpeed(uint8_t newAnimationSpeed) {
   }
   animationSpeed = newAnimationSpeed;
   dirtyFlag = animationSpeedChanged = true;
-}
-
-void LightController::setStateOn(bool newStateOn) {
-  if (stateOn == newStateOn) {
-    return;
-  }
-  stateOn = newStateOn;
-  dirtyFlag = stateOnChanged = true;
-}
-
-void LightController::toggleState() {
-  setStateOn(!isOn());
 }
 
 void LightController::setAnimationByName(String effectName) {
@@ -121,48 +94,8 @@ void LightController::setAnimationByIndex(uint8_t animationIndex) {
 
 void LightController::loop() {
   currentEffect->handle();
-  brightnessChanged = false;
+  lightBrightnessChanged = false;
   stateOnChanged = false;
   effectChanged = false;
   animationSpeedChanged = false;
-}
-
-uint8_t LightController::getLedBrightness(uint8_t pinIndex) const {
-  return pins[pinIndex].brightness;
-}
-
-uint8_t LightController::getLightBrightness() const {
-  return brightness;
-}
-
-uint8_t LightController::getCurrentAnimationIndex() {
-  return currentAnimationIndex;
-}
-
-String LightController::getCurrentAnimationName() const {
-  return effects[currentAnimationIndex].name;
-}
-
-uint8_t LightController::getAnimationSpeed() const {
-  return animationSpeed;
-}
-
-bool LightController::isOn() const {
-  return stateOn;
-}
-
-bool LightController::isMaxBrightensChanged() const {
-  return brightnessChanged;
-}
-
-bool LightController::isStateOnChanged() const {
-  return stateOnChanged;
-}
-
-bool LightController::isEffectChanged() const {
-  return effectChanged;
-}
-
-bool LightController::isAnimationSpeedChanged() const {
-  return animationSpeedChanged;
 }

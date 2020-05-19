@@ -3,7 +3,7 @@
 #include "dbg.h"
 #include "LightController.h"
 
-NoAnimation::NoAnimation(LightController *lightController) : 
+NoAnimation::NoAnimation(LightController* lightController) : 
     BaseAnimation(lightController) {
   DBG("NoAnimation constructed!\n");
 }
