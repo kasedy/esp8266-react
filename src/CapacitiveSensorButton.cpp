@@ -5,10 +5,10 @@
 #include "dbg.h"
 
 #define NUM_SAMPLES 50
-#define PROCESSING_INTERVAL 25
+#define PROCESSING_INTERVAL_MS 25
 #define THRESHOLD 350
-#define CLICK_TIME_THRESHOLD 500
-#define DOUBLE_CLICK_TIME_THRESHOLD 250
+#define CLICK_TIME_THRESHOLD_MS 500
+#define DOUBLE_CLICK_TIME_THRESHOLD_MS 250
 
 #define DBG_INFO(fmt, ...)
 
@@ -48,7 +48,7 @@ void CapacitiveSensorButton::loop() {
     lastDebug = now;
   }
 
-  if (now - lastAverageCalculation >= PROCESSING_INTERVAL) {
+  if (now - lastAverageCalculation >= PROCESSING_INTERVAL_MS) {
     if (touchSensorData.getCounter() == 0) {
       DBG_INFO("Failed to get average for capacitive sensor charge time\n");
       return;
@@ -58,7 +58,7 @@ void CapacitiveSensorButton::loop() {
     if (isPressed && averageSensorTime < THRESHOLD) {
       isPressed = false;
       startHandlingLongPress = false;
-      if (now - lastDownTime > CLICK_TIME_THRESHOLD) {
+      if (now - lastDownTime > CLICK_TIME_THRESHOLD_MS) {
         rapidClickCounter = 0;
       } else {
         ++rapidClickCounter;
@@ -76,14 +76,14 @@ void CapacitiveSensorButton::loop() {
     lastAverageCalculation = now;
   }
 
-  if (!isPressed && rapidClickCounter != 0 && now - lastUpTime > DOUBLE_CLICK_TIME_THRESHOLD) {
+  if (!isPressed && rapidClickCounter != 0 && now - lastUpTime > DOUBLE_CLICK_TIME_THRESHOLD_MS) {
     DBG("Click %d\n", rapidClickCounter);
     // 1 - single click, 2 - double click, etc...
     handler(rapidClickCounter, EventType::Click);
     rapidClickCounter = 0;
   }
 
-  if (isPressed && now - lastDownTime > CLICK_TIME_THRESHOLD) {
+  if (isPressed && now - lastDownTime > CLICK_TIME_THRESHOLD_MS) {
     DBG("Long press %d\n", rapidClickCounter);
     // 0 - push and hold, 1 - click and hold, 2 - double click and hold, etc...
     handler(rapidClickCounter, startHandlingLongPress ? EventType::HoldStart : EventType::Holding);

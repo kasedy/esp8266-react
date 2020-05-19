@@ -18,7 +18,7 @@ class FadeSwitch : public BaseAnimation {
 public:
   constexpr static uint8_t pinsRequires = 1;
 
-  FadeSwitch(LightController *lightController);
+  FadeSwitch(LightController* lightController);
   virtual ~FadeSwitch();
   virtual void handle() override;
 };

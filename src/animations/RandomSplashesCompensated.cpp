@@ -4,7 +4,7 @@
 #include "LightController.h"
 
 
-RandomSplashesCompensated::RandomSplashesCompensated(LightController *lightController) 
+RandomSplashesCompensated::RandomSplashesCompensated(LightController* lightController) 
     : BaseAnimation(lightController),
     timeToChangeBrightness(0),
     currentLedIndex(0) {

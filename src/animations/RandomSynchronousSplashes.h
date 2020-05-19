@@ -16,10 +16,10 @@ public:
   constexpr static uint8_t pinsRequires = 1;
   
   RandomSynchronousSplashes(
-    LightController *lightController,
+    LightController* lightController,
     int8_t speed = 0);
   RandomSynchronousSplashes(
-    LightController *lightController, 
+    LightController* lightController, 
     std::vector<BrightnessSettings> brightnessSettings,
     int8_t speed = 0);
   virtual ~RandomSynchronousSplashes();

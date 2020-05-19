@@ -8,6 +8,6 @@ class __FlashStringHelper;
 
 struct Effect {
   const __FlashStringHelper* name;
-  std::function<BaseAnimation* (LightController *lightController)> animationBuilder;
+  std::function<BaseAnimation* (LightController* lightController)> animationBuilder;
   uint8_t pinsRequires;
 };

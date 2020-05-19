@@ -12,17 +12,17 @@ private:
     unsigned long timeToChangeBrightness;
   };
 
-  LedInfo *ledInfo;
+  LedInfo* ledInfo;
   void resetTimers(unsigned long timeToChangeBrightness);
   BrightnessSettings nextBrightness(uint8_t index);
 public:
   constexpr static uint8_t pinsRequires = 1;
 
   RandomAsynchronousSplashes(
-    LightController *lightController, 
+    LightController* lightController, 
     int8_t speed = 0);
   RandomAsynchronousSplashes(
-    LightController *lightController, 
+    LightController* lightController, 
     std::vector<BrightnessSettings> brightnessSettings,
     int8_t speed = 0);
   virtual ~RandomAsynchronousSplashes();

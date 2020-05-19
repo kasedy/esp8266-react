@@ -47,4 +47,4 @@ std::vector<T> filter_vector(const std::vector<T> &input, Predicate predicate) {
   return result;
 }
 
-const char* makeSafeName(const char *name);
+const char* makeSafeName(const char* name);

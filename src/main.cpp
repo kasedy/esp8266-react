@@ -2,7 +2,7 @@
 
 #include "Device.h"
 
-Device *device;
+Device* device;
 
 void setup() {
 #if LOGGING

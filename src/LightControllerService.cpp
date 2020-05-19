@@ -1,10 +1,10 @@
 #include "LightControllerService.h"
 
-static const char *STATE_PARAM PROGMEM = "state";
-static const char *BRIGHTNESS_PARAM PROGMEM = "brightness";
-static const char *SPEED_PARAM PROGMEM = "speed";
-static const char *EFFECT_PARAM PROGMEM = "effect";
-static const char *EFFECT_LIST_PARAM PROGMEM = "effect_list";
+static const char* STATE_PARAM PROGMEM = "state";
+static const char* BRIGHTNESS_PARAM PROGMEM = "brightness";
+static const char* SPEED_PARAM PROGMEM = "speed";
+static const char* EFFECT_PARAM PROGMEM = "effect";
+static const char* EFFECT_LIST_PARAM PROGMEM = "effect_list";
 
 #define LIGHT_SETTINGS_SOCKET_PATH "/ws/light"
 #define UPDATE_THROTTLE_MS 100

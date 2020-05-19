@@ -4,7 +4,7 @@
 #include "LightController.h"
 
 
-FadeCycle::FadeCycle(LightController *lightController) 
+FadeCycle::FadeCycle(LightController* lightController) 
     : BaseAnimation(lightController) {
   DBG("FadeCycle constructed!\n");
 }

@@ -4,13 +4,13 @@
 
 #include "LightControllerService.h"
 
-static const char *CONFIG_MQTT_PAYLOAD_ON PROGMEM = "ON"; 
-static const char *CONFIG_MQTT_PAYLOAD_OFF PROGMEM = "OFF";
+static const char* CONFIG_MQTT_PAYLOAD_ON PROGMEM = "ON"; 
+static const char* CONFIG_MQTT_PAYLOAD_OFF PROGMEM = "OFF";
 
-static const char *STATE PROGMEM = "state";
-static const char *BRIGHTNESS PROGMEM = "brightness";
-static const char *EFFECT PROGMEM = "effect";
-static const char *WHITE_VALUE PROGMEM = "white_value";
+static const char* STATE PROGMEM = "state";
+static const char* BRIGHTNESS PROGMEM = "brightness";
+static const char* EFFECT PROGMEM = "effect";
+static const char* WHITE_VALUE PROGMEM = "white_value";
 
 static String getDeviceUniqueName() {
   uint8_t mac[WL_MAC_ADDR_LENGTH];
@@ -33,7 +33,7 @@ static void homeAssistantMqttMessageSerialize(LightController& lightController, 
 }
 
 static void homeAssistantMqttMessageDeserialize(JsonObject& doc, LightController& lightController) {
-  const char *state = doc[FPSTR(STATE)] | "";
+  const char* state = doc[FPSTR(STATE)] | "";
   if (strcmp_P(state, CONFIG_MQTT_PAYLOAD_ON) == 0) {
     lightController.setStateOn(true);
   } else if (strcmp_P(state, CONFIG_MQTT_PAYLOAD_OFF) == 0) {
@@ -80,7 +80,7 @@ void HomeAssistantMqttBroker::sendAutoDiscovery() {
     return;
   }
 
-  const LightController *lightController = lightControllerService->get();
+  const LightController* lightController = lightControllerService->get();
   const HomeAssistantMqttSettings& homeAssistantSettings = homeAssistantMqttService->get();
   bool supportsAnimation = lightController->supportsAnimation();
 

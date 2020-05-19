@@ -12,9 +12,9 @@ public:
     uint8_t maxBrightness;
   };
 
-  RandomSplashes(LightController *lightController, int8_t speed = 0);
+  RandomSplashes(LightController* lightController, int8_t speed = 0);
   RandomSplashes(
-    LightController *lightController, 
+    LightController* lightController, 
     std::vector<BrightnessSettings> brightnessSettings, 
     int8_t speed = 0);
   virtual ~RandomSplashes();

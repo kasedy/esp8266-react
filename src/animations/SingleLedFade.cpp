@@ -4,7 +4,7 @@
 
 #include "LightController.h"
 
-SingleLedFade::SingleLedFade(LightController *lightController, uint8_t brightnessOverlap) : 
+SingleLedFade::SingleLedFade(LightController* lightController, uint8_t brightnessOverlap) : 
     BaseAnimation(lightController),
     brightnessOverlap(brightnessOverlap),
     currentLed(0),

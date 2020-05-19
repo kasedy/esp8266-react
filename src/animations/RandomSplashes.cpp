@@ -3,12 +3,12 @@
 #include "dbg.h"
 #include "LightController.h"
 
-RandomSplashes::RandomSplashes(LightController *lightController, int8_t speed) 
+RandomSplashes::RandomSplashes(LightController* lightController, int8_t speed) 
     : RandomSplashes(lightController, {}, speed) {
 }
 
 RandomSplashes::RandomSplashes(
-    LightController *lightController, 
+    LightController* lightController, 
     std::vector<BrightnessSettings> bSettings,
     int8_t speed) 
     : BaseAnimation(lightController),

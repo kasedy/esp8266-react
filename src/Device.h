@@ -15,7 +15,7 @@ class Device {
   HomeAssistantMqttBroker homeAssistantMqttBroker;
   CapacitiveSensorButtonManager capacitiveSensorButtonManager;
 public:
-  Device(FS *fs);
+  Device(FS* fs);
 
   void setup();
   void loop();

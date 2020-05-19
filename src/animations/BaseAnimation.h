@@ -9,7 +9,7 @@ protected:
   LightController* const lightController;
 
 public:
-  BaseAnimation(LightController *lightController) : lightController(lightController) {}
+  BaseAnimation(LightController* lightController) : lightController(lightController) {}
   virtual ~BaseAnimation() {}
   virtual void handle() = 0;
 };

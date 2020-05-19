@@ -3,12 +3,12 @@
 #include "dbg.h"
 #include "LightController.h"
 
-RandomSynchronousSplashes::RandomSynchronousSplashes(LightController *lightController, int8_t speed) 
+RandomSynchronousSplashes::RandomSynchronousSplashes(LightController* lightController, int8_t speed) 
     : RandomSynchronousSplashes(lightController, {}, speed) {
 }
 
 RandomSynchronousSplashes::RandomSynchronousSplashes(
-    LightController *lightController, 
+    LightController* lightController, 
     std::vector<BrightnessSettings> bSettings,
     int8_t speed) 
     : RandomSplashes(lightController, bSettings, speed) {

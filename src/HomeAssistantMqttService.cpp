@@ -4,8 +4,8 @@
 
 #include "dbg.h"
 
-static const char *HOME_ASSISTANT_SETTINGS_ENDPOINT = "/rest/ha";
-static const char *HOME_ASSISTANT_SETTINGS_FILE = "/config/ha";
+static const char* HOME_ASSISTANT_SETTINGS_ENDPOINT = "/rest/ha";
+static const char* HOME_ASSISTANT_SETTINGS_FILE = "/config/ha";
 
 static void homeAssistantMqttSettingsSerialize(HomeAssistantMqttSettings& settings, JsonObject& root) {
   root["name"] = settings.deviceDisplayName;

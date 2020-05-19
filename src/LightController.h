@@ -20,7 +20,7 @@ private:
   uint8_t animationSpeed;
   std::vector<PinStatus> pins;
   const std::vector<Effect> effects;
-  BaseAnimation *currentEffect;
+  BaseAnimation* currentEffect;
   uint8_t currentAnimationIndex;
   bool stateOn:1;
 

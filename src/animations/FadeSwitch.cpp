@@ -4,7 +4,7 @@
 #include "helpers.h"
 #include "LightController.h"
 
-FadeSwitch::FadeSwitch(LightController *lightController) : 
+FadeSwitch::FadeSwitch(LightController* lightController) : 
     BaseAnimation(lightController) {
   DBG("FadeSwitch constructed;\n");
 }
