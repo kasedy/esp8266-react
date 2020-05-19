@@ -4,7 +4,6 @@
 #include <ESP8266WiFi.h>
 #include <ArduinoOTA.h>
 
-#include "hardware.h"
 #include "dbg.h"
 
 #define ALLOWED_TIME_INTERVAL_BETWEEN_RESETS 3000
@@ -26,15 +25,15 @@ namespace EmergencyProtocol {
   }
   
   void checkOnActivation() {
-    pinMode(LEAD_INDICATOR_PIN, OUTPUT);
-    digitalWrite(LEAD_INDICATOR_PIN, HIGH);
+    pinMode(LED_INDICATOR_PIN, OUTPUT);
+    digitalWrite(LED_INDICATOR_PIN, HIGH);
     uint8_t numResets = ResetDetector::execute(ALLOWED_TIME_INTERVAL_BETWEEN_RESETS);
     DBG("Starting with %d reset(s)\n", numResets);
     if (numResets < EMERGENCY_RESET_THRESHOLD) {
       return;
     }
     DBG("Acivating EMERGENCY protocol!\n");
-    digitalWrite(LEAD_INDICATOR_PIN, LOW);
+    digitalWrite(LED_INDICATOR_PIN, LOW);
     if (WiFi.SSID().length() > 0) {
       DBG("Trying to connect with saved credantials\n");
       if (!WiFi.isConnected()) {
