@@ -71,7 +71,11 @@ void OTASettingsService::configureArduinoOTA() {
       else if (error == OTA_END_ERROR)
         Serial.println(F("End Failed"));
     });
+#ifdef ESP32
+    _arduinoOTA->begin();
+#elif defined(ESP8266)
     _arduinoOTA->begin(false);
+#endif
   }
 }
 

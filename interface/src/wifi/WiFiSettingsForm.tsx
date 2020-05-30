@@ -83,8 +83,6 @@ class WiFiSettingsForm extends React.Component<WiFiStatusFormProps> {
           />
         }
         <TextValidator
-          validators={['required', 'isHostname']}
-          errorMessages={['Hostname is required', "Not a valid hostname"]}
           name="hostname"
           label="Hostname"
           fullWidth
