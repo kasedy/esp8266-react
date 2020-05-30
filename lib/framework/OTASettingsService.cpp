@@ -3,7 +3,13 @@
 OTASettingsService::OTASettingsService(AsyncWebServer* server, FS* fs, SecurityManager* securityManager) :
     _httpEndpoint(OTASettings::read, OTASettings::update, this, server, OTA_SETTINGS_SERVICE_PATH, securityManager),
     _fsPersistence(OTASettings::read, OTASettings::update, this, fs, OTA_SETTINGS_FILE),
-    _arduinoOTA(nullptr) {
+    _arduinoOTA(nullptr)
+#if defined(ESP8266)
+    ,
+    _mdnsHandler(nullptr),
+    _onStationModeGotIPHandler(nullptr)
+#endif  
+{
 #ifdef ESP32
   WiFi.onEvent(std::bind(&OTASettingsService::onStationModeGotIP, this, std::placeholders::_1, std::placeholders::_2),
                WiFiEvent_t::SYSTEM_EVENT_STA_GOT_IP);
@@ -23,6 +29,15 @@ void OTASettingsService::loop() {
   if (_state.enabled && _arduinoOTA) {
     _arduinoOTA->handle();
   }
+
+#if defined(ESP8266)
+  if (_mdnsHandler && !_state.enabled) {
+    MDNS.removeService(_mdnsHandler);
+    _mdnsHandler = nullptr;
+  } else if (!_mdnsHandler && _state.enabled && MDNS.isRunning()) {
+    _mdnsHandler = MDNS.enableArduino(_state.port, !_state.password.isEmpty());
+  }
+#endif
 }
 
 void OTASettingsService::configureArduinoOTA() {
@@ -56,7 +71,7 @@ void OTASettingsService::configureArduinoOTA() {
       else if (error == OTA_END_ERROR)
         Serial.println(F("End Failed"));
     });
-    _arduinoOTA->begin();
+    _arduinoOTA->begin(false);
   }
 }
 

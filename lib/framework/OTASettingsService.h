@@ -1,14 +1,14 @@
 #ifndef OTASettingsService_h
 #define OTASettingsService_h
 
+#ifdef ESP32
+  #include <ESPmDNS.h>
+#elif defined(ESP8266)
+  #include <ESP8266mDNS.h>
+#endif
+
 #include <HttpEndpoint.h>
 #include <FSPersistence.h>
-
-#ifdef ESP32
-#include <ESPmDNS.h>
-#elif defined(ESP8266)
-#include <ESP8266mDNS.h>
-#endif
 
 #include <ArduinoOTA.h>
 #include <WiFiUdp.h>
@@ -64,6 +64,7 @@ class OTASettingsService : public StatefulService<OTASettings> {
 #ifdef ESP32
   void onStationModeGotIP(WiFiEvent_t event, WiFiEventInfo_t info);
 #elif defined(ESP8266)
+  MDNSResponder::hMDNSService _mdnsHandler;
   WiFiEventHandler _onStationModeGotIPHandler;
   void onStationModeGotIP(const WiFiEventStationModeGotIP& event);
 #endif

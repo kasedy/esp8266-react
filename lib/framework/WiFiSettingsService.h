@@ -1,6 +1,12 @@
 #ifndef WiFiSettingsService_h
 #define WiFiSettingsService_h
 
+#ifdef ESP32
+  #include <ESPmDNS.h>
+#elif defined(ESP8266)
+  #include <ESP8266mDNS.h>
+#endif
+
 #include <StatefulService.h>
 #include <FSPersistence.h>
 #include <HttpEndpoint.h>
@@ -100,7 +106,9 @@ class WiFiSettingsService : public StatefulService<WiFiSettings> {
   void onStationModeStop(WiFiEvent_t event, WiFiEventInfo_t info);
 #elif defined(ESP8266)
   WiFiEventHandler _onStationModeDisconnectedHandler;
+  WiFiEventHandler _onStationModeGotIPHandler;
   void onStationModeDisconnected(const WiFiEventStationModeDisconnected& event);
+  void onStationModeGotIP(const WiFiEventStationModeGotIP& event);
 #endif
 
   void reconfigureWiFiConnection();

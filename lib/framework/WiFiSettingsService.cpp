@@ -25,6 +25,9 @@ WiFiSettingsService::WiFiSettingsService(AsyncWebServer* server, FS* fs, Securit
 #elif defined(ESP8266)
   _onStationModeDisconnectedHandler = WiFi.onStationModeDisconnected(
       std::bind(&WiFiSettingsService::onStationModeDisconnected, this, std::placeholders::_1));
+  _onStationModeGotIPHandler = WiFi.onStationModeGotIP(
+      std::bind(&WiFiSettingsService::onStationModeGotIP, this, std::placeholders::_1));
+  MDNS.addService(nullptr, "http", "tcp", 80);
 #endif
 
   addUpdateHandler([&](const String& originId) { reconfigureWiFiConnection(); }, false);
@@ -55,6 +58,9 @@ void WiFiSettingsService::loop() {
     _lastConnectionAttempt = currentMillis;
     manageSTA();
   }
+#if defined(ESP8266)  
+  MDNS.update();
+#endif
 }
 
 void WiFiSettingsService::manageSTA() {
@@ -95,6 +101,11 @@ void WiFiSettingsService::onStationModeStop(WiFiEvent_t event, WiFiEventInfo_t i
 }
 #elif defined(ESP8266)
 void WiFiSettingsService::onStationModeDisconnected(const WiFiEventStationModeDisconnected& event) {
+  MDNS.end();
   WiFi.disconnect(true);
+}
+void WiFiSettingsService::onStationModeGotIP(const WiFiEventStationModeGotIP& event) {
+  MDNS.setHostname(_state.hostname); // rename existing service handlers
+  MDNS.begin(_state.hostname, event.ip);
 }
 #endif
